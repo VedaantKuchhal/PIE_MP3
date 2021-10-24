@@ -13,9 +13,6 @@ Adafruit_DCMotor *Right = AFMS.getMotor(2); //motor from port 2
   int n1=850;              // Right sensor value for yes/no line detection
   int n2=750;               //Left sensor value for yes/no line detection
 
-//Motor shield commands
-//myMotor->setSpeed(150); //speed set 0-255
-//myMotor->run(FORWARD); //inputs FORWARD, BACKWARD, RELEASE
 
 //Sensor Connection
   const int left_sensor_pin =A0;
@@ -40,11 +37,9 @@ void loop() {
 left_sensor_state = analogRead(left_sensor_pin);
 right_sensor_state = analogRead(right_sensor_pin);
 
-//Serials();
-
 if(right_sensor_state < n1 && left_sensor_state > n2)
 {
-  Serial.println("turning right");
+  
 
   Left->run(FORWARD);
   Right->run(FORWARD);
@@ -52,12 +47,15 @@ if(right_sensor_state < n1 && left_sensor_state > n2)
   Left->setSpeed(0); //speed set Left
   Right->setSpeed(turn_speed); //turn set Right
 
-  
+  Serial.print(right_sensor_state); Serial.print(",");
+  Serial.print(left_sensor_state); Serial.print(",");
+  Serial.print(turn_speed); Serial.print(",");
+  Serial.println(0);
   delay(turn_delay);
   }
 if(right_sensor_state > n1 && left_sensor_state < n2)
 {
-  Serial.println("turning left");
+//  Serial.println("turning left");
   
   Left->run(FORWARD);
   Right->run(FORWARD);
@@ -65,12 +63,18 @@ if(right_sensor_state > n1 && left_sensor_state < n2)
   Right->setSpeed(0); //speed set Right
   Left->setSpeed(turn_speed); //turn set Left
 
+  Serial.print(right_sensor_state); Serial.print(",");
+  Serial.print(left_sensor_state); Serial.print(",");
+  Serial.print(0); Serial.print(",");
+  Serial.println(turn_speed);
+  
   delay(turn_delay);
   }
+  
 
 if(right_sensor_state < n1 && left_sensor_state < n2)
 {
-  Serial.println("going forward");
+//  Serial.println("going forward");
 
   Left->run(FORWARD);
   Right->run(FORWARD);
@@ -78,32 +82,33 @@ if(right_sensor_state < n1 && left_sensor_state < n2)
   Left->setSpeed(vSpeed); //speed set Left
   Right->setSpeed(vSpeed); //speed set Right
 
+  Serial.print(right_sensor_state); Serial.print(",");
+  Serial.print(left_sensor_state); Serial.print(",");
+  Serial.print(vSpeed); Serial.print(",");
+  Serial.println(vSpeed);
+  
   delay(turn_delay);
+
   
   }
 
 if(right_sensor_state > n1 && left_sensor_state > n2)
 { 
-  Serial.println("stop");
+//  Serial.println("stop");
 
   Left->run(RELEASE);
   Right->run(RELEASE);
   
   Left->setSpeed(0); //speed set Left, stop
   Right->setSpeed(0); //speed set Right, stop
-  
+
+  Serial.print(right_sensor_state); Serial.print(",");
+  Serial.print(left_sensor_state); Serial.print(",");
+  Serial.print(0); Serial.print(",");
+  Serial.println(0);
+
+  delay(turn_delay);
   }
-//  delay(3000);
+
+
 }
-//
-//void Serials() {
-//    Serial.print(right_sensor_state);
-//    Serial.print(',');
-//    Serial.print(left_sensor_state);
-//    Serial.print(',');
-//    Serial.print(motorAspeed);
-//    Serial.print(',');
-//    Serial.print(motorBspeed);
-//    Serial.print(',');
-//
-//}

@@ -13,9 +13,6 @@ Adafruit_DCMotor *Right = AFMS.getMotor(2); //motor from port 2
   int n1=850;              // Right sensor value for yes/no line detection
   int n2=750;               //Left sensor value for yes/no line detection
 
-//Motor shield commands
-//myMotor->setSpeed(150); //speed set 0-255
-//myMotor->run(FORWARD); //inputs FORWARD, BACKWARD, RELEASE
 
 //Sensor Connection
   const int left_sensor_pin =A0;
@@ -39,8 +36,6 @@ void loop() {
 
 left_sensor_state = analogRead(left_sensor_pin);
 right_sensor_state = analogRead(right_sensor_pin);
-
-//Serials();
 
 if(right_sensor_state < n1 && left_sensor_state > n2)
 {
@@ -93,17 +88,5 @@ if(right_sensor_state > n1 && left_sensor_state > n2)
   Right->setSpeed(0); //speed set Right, stop
   
   }
-//  delay(3000);
+
 }
-//
-//void Serials() {
-//    Serial.print(right_sensor_state);
-//    Serial.print(',');
-//    Serial.print(left_sensor_state);
-//    Serial.print(',');
-//    Serial.print(motorAspeed);
-//    Serial.print(',');
-//    Serial.print(motorBspeed);
-//    Serial.print(',');
-//
-//}
